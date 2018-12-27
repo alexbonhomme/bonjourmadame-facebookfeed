@@ -46,12 +46,12 @@
 }
 
 /* show/hide feed/picture */
-.bm-container-picture,
+.bm-picture-container,
 .bm-feed-hidden ~ .bm-feed {
   display: none;
 }
 
 .bm-feed,
-.bm-feed-hidden ~ .bm-container-picture {
+.bm-feed-hidden ~ .bm-picture-container {
   display: block;
 }
