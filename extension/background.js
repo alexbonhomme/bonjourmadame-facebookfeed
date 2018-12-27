@@ -30,4 +30,15 @@ chrome.runtime.onInstalled.addListener(() => {
       imageUrl: dataUrl
     })
   })
+
+  // loads quotes
+  const quotesUrl = chrome.runtime.getURL('quotes.json')
+  fetch(quotesUrl)
+    .then(response => response.json())
+    .then(quotes => {
+      // store quotes in local storage
+      chrome.storage.local.set({
+        quotes: quotes
+      })
+    });
 });
