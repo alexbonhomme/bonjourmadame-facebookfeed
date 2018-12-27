@@ -18,6 +18,8 @@ function toDataURL(url, callback) {
 }
 
 chrome.runtime.onInstalled.addListener(() => {
+  console.log('onInstalled')
+
   // set default options
   chrome.storage.local.set({
     showFeed: false
