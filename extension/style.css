@@ -1,5 +1,45 @@
-.bonjourmadame-picture {
+.bm-picture {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.bm-controls {
+
+}
+
+.bm-control-button {
+  padding: 8px 12px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 14px;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  border-radius: 2px 2px 0 0;
+  border-color: #dddfe2;
+  border-bottom: none;
+}
+
+.bm-feed-hidden > .bm-madame-button,
+:not(.bm-feed-hidden) > .bm-feed-button {
+  background: #f5f6f7;
+  font-weight: 600;
+}
+
+.bm-control-button:hover {
+  background: #f5f6f7;
+  cursor: pointer;
+}
+
+/* show/hide feed/picture */
+.bm-picture,
+.bm-feed-hidden ~ .bm-feed {
+  display: none;
+}
+
+.bm-feed,
+.bm-feed-hidden ~ .bm-picture {
+  display: block;
 }

@@ -17,18 +17,17 @@ function toDataURL(url, callback) {
   xhr.send();
 }
 
-chrome.runtime.onInstalled.addListener(function() {
-  // fetch Bonjour Madame picture
-  toDataURL('http://giskard.aqelia.com:8888', dataUrl => {
-    console.log('RESULT:', dataUrl)
-
-    // storage base64 image
-    chrome.storage.local.set({
-      imageUrl: dataUrl
-    }, () => {
-      console.log("Image fetched !");
-    });
+chrome.runtime.onInstalled.addListener(() => {
+  // set default options
+  chrome.storage.local.set({
+    showFeed: false
   })
 
-
+  // fetch Bonjour Madame picture
+  toDataURL('http://giskard.aqelia.com:8888', dataUrl => {
+    // store base64 image
+    chrome.storage.local.set({
+      imageUrl: dataUrl
+    })
+  })
 });
