@@ -23,6 +23,8 @@ function toDataURL(url, callback) {
  *
  */
 function fetchPicture() {
+  console.log('fetch picture !')
+
   toDataURL('http://giskard.aqelia.com:8888', dataUrl => {
     // store base64 image
     chrome.storage.local.set({
@@ -63,13 +65,18 @@ chrome.runtime.onInstalled.addListener(() => {
 /**
  * Set daily picture fecth
  */
-let todayFetch = new Date()
-todayFetch.setHours(BM_PICTURE_FETCH_HOUR)
-todayFetch.setMinutes(0)
+let fetchDate = new Date()
+
+// fetch time is past, lets fetch tomorrow
+if (fetchDate.getHours() > BM_PICTURE_FETCH_HOUR) {
+  fetchDate.setDate(fetchDate.getDate() + 1)
+}
+fetchDate.setHours(BM_PICTURE_FETCH_HOUR)
+fetchDate.setMinutes(0)
 
 chrome.alarms.create('fetchMadame', {
-  when: todayFetch.getTime(),
-  periodInMinutes: 24*60 // every day
+  when: fetchDate.getTime(),
+  periodInMinutes: 60*24 // every day
 })
 
 chrome.alarms.onAlarm.addListener(({ name }) => {
