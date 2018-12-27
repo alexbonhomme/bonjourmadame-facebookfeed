@@ -1,11 +1,23 @@
+.bm-picture-container {
+  position: relative;
+}
+
 .bm-picture {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.bm-controls {
-
+.bm-quote {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px 30px;
+  margin: 0;
+  font-size: 24px;
 }
 
 .bm-control-button {
@@ -34,12 +46,12 @@
 }
 
 /* show/hide feed/picture */
-.bm-picture,
+.bm-container-picture,
 .bm-feed-hidden ~ .bm-feed {
   display: none;
 }
 
 .bm-feed,
-.bm-feed-hidden ~ .bm-picture {
+.bm-feed-hidden ~ .bm-container-picture {
   display: block;
 }

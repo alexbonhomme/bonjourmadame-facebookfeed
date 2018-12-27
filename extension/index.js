@@ -1,15 +1,44 @@
 /**
  *
  */
+function buildContainerElement() {
+  let imageContainerElement = document.createElement('div')
+
+  imageContainerElement.classList.add('bm-picture-container')
+
+  return imageContainerElement
+}
+
+/**
+ *
+ */
 function buildImgElement() {
   let imgElement = document.createElement('img')
 
   imgElement.classList.add('bm-picture')
+
   chrome.storage.local.get(['imageUrl'], ({ imageUrl }) => {
     imgElement.src = imageUrl
   })
 
   return imgElement
+}
+
+/**
+ *
+ */
+function buildQuoteElement() {
+  let quoteElement = document.createElement('p')
+
+  quoteElement.classList.add('bm-quote')
+
+  chrome.storage.local.get(['quotes'], ({ quotes }) => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+
+    quoteElement.innerText = randomQuote
+  })
+
+  return quoteElement
 }
 
 /**
@@ -51,22 +80,27 @@ function buildControlsElement() {
     return console.error('Missing Faccebook feed tag !');
   }
 
-  // prepare Bonjour Madame image
+  // prepare elements
   const imgElement = buildImgElement()
   const controlsElement = buildControlsElement()
+  const quotesElement = buildQuoteElement()
 
+  // found and tag feed element
   const feedNode = elements[0]
   const feedContentNode = feedNode.firstChild
   feedContentNode.classList.add('bm-feed')
 
-  // insert image
-  feedNode.prepend(imgElement)
+  // insert image & quote
+  const containerElement = buildContainerElement()
+  containerElement.append(imgElement)
+  containerElement.append(quotesElement)
+
+  feedNode.prepend(containerElement)
 
   // insert controls
   feedNode.prepend(controlsElement)
 
-
-  // hide feed content
+  // show/hide feed content
   chrome.storage.local.get(['showFeed'], ({ showFeed }) => {
     if (showFeed) {
       controlsElement.classList.remove('bm-feed-hidden')
