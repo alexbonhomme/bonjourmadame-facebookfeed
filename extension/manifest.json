@@ -1,0 +1,22 @@
+{
+  "name": "Bonjour Madame Facebook feed",
+  "version": "1.0",
+  "description": "Bonjour Madame !",
+  "manifest_version": 2,
+  "permissions": [
+    "https://*.facebook.com/*",
+    "http://*.aqelia.com:*/*",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.facebook.com/*"],
+      "js": ["index.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
+}
