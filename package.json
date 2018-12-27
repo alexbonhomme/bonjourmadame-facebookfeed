@@ -1,0 +1,23 @@
+{
+  "name": "bonjourmadame-facebookfeed",
+  "version": "1.0.0",
+  "description": "Basic Chrome extension that replace Facebook feed content by an interesting picture from Bonjour Madame web site.",
+  "main": "extension/index.js",
+  "scripts": {
+    "quotes": "node quotes-scraper.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbonhomme/bonjourmadame-facebookfeed.git"
+  },
+  "author": "Alexadre Bonhomme <alex@aqelia.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexbonhomme/bonjourmadame-facebookfeed/issues"
+  },
+  "homepage": "https://github.com/alexbonhomme/bonjourmadame-facebookfeed#readme",
+  "dependencies": {
+    "jsdom": "^13.1.0"
+  }
+}
