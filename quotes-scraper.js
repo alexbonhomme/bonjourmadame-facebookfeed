@@ -3,6 +3,7 @@ const { JSDOM } = require('jsdom')
 
 const BASE_URL = 'http://evene.lefigaro.fr/citations/serge-gainsbourg';
 const TOTAL_PAGES = 4
+const ARTISTE_NAME = 'S. Gainsbourg'
 const OUTPUT_FILE = 'extension/quotes.json'
 
 
@@ -24,7 +25,9 @@ function fetchQuotes(totalPages) {
         }
 
         const textQuoteCollection = Array.from(quotes).map(quote => {
-          return quote.querySelector('.figsco__quote__text').children[0].textContent.substr(1).slice(0, -1)
+          const quoteText = quote.querySelector('.figsco__quote__text').children[0].textContent.substr(1).slice(0, -1)
+
+          return `« ${quoteText} » ${ARTISTE_NAME}`
         })
 
         return textQuoteCollection;
