@@ -20,11 +20,9 @@ function toDataURL(url, callback) {
 }
 
 /**
- *
+ * Store today Madame in local storage
  */
 function fetchPicture() {
-  console.log('fetch picture !')
-
   toDataURL('http://giskard.aqelia.com:8888', dataUrl => {
     // store base64 image
     chrome.storage.local.set({
@@ -34,7 +32,7 @@ function fetchPicture() {
 }
 
 /**
- *
+ * Store a random quote in local storage
  */
 function fetchQuotes() {
   const quotesUrl = chrome.runtime.getURL('quotes.json')
@@ -42,9 +40,11 @@ function fetchQuotes() {
   return fetch(quotesUrl)
     .then(response => response.json())
     .then(quotes => {
-      // store quotes in local storage
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+
+      // store today quote in local storage
       chrome.storage.local.set({
-        quotes: quotes
+        quote: randomQuote
       })
     })
 }
@@ -80,7 +80,10 @@ chrome.alarms.create('fetchMadame', {
 })
 
 chrome.alarms.onAlarm.addListener(({ name }) => {
-  if (name === 'fetchMadame') {
-    fetchPicture();
+  if (name !== 'fetchMadame') {
+    return
   }
+
+  fetchPicture()
+  fetchQuotes()
 })

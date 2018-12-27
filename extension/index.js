@@ -32,10 +32,8 @@ function buildQuoteElement() {
 
   quoteElement.classList.add('bm-quote')
 
-  chrome.storage.local.get(['quotes'], ({ quotes }) => {
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
-
-    quoteElement.innerText = randomQuote
+  chrome.storage.local.get(['quote'], ({ quote }) => {
+    quoteElement.innerText = quote
   })
 
   return quoteElement
