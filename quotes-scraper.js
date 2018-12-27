@@ -1,6 +1,8 @@
 const fs = require('fs')
 const { JSDOM } = require('jsdom')
+
 const BASE_URL = 'http://evene.lefigaro.fr/citations/serge-gainsbourg';
+const OUTPUT_FILE = 'extension/quotes.json'
 
 
 /**
@@ -35,7 +37,7 @@ function fetchQuotes(totalPages) {
 }
 
 fetchQuotes(4).then(quoteCollection => {
-  fs.writeFile('quotes.json', JSON.stringify(quoteCollection), 'utf8', () => {
+  fs.writeFile(OUTPUT_FILE, JSON.stringify(quoteCollection), 'utf8', () => {
     console.log('quotes.json created !')
   })
 })
