@@ -6,7 +6,8 @@
   "permissions": [
     "https://*.facebook.com/*",
     "http://*.aqelia.com:*/*",
-    "storage"
+    "storage",
+    "alarms"
   ],
   "content_scripts": [
     {
