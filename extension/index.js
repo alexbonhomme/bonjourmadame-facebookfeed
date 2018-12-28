@@ -72,10 +72,9 @@ function buildControlsElement() {
  *
  */
 (function () {
-  const elements = document.querySelectorAll('div[id^="topnews_main_stream_"]');
-
+  const elements = document.querySelectorAll('div[id^="topnews_main_stream_"]')
   if (!elements.length) {
-    return console.error('Missing Faccebook feed tag !');
+    return
   }
 
   // prepare elements

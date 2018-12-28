@@ -23,6 +23,8 @@ function toDataURL(url, callback) {
  * Store today Madame in local storage
  */
 function fetchPicture() {
+  console.debug('fetch madame')
+
   toDataURL('http://giskard.aqelia.com:8888', dataUrl => {
     // store base64 image
     chrome.storage.local.set({
@@ -54,29 +56,15 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({
     showFeed: false
   })
-
-  // fetch Bonjour Madame picture
-  fetchPicture()
-
-  // loads Gainsbourg quotes
-  fetchQuotes()
 });
 
 /**
- * Set daily picture fecth
+ * Set daily picture/quote fecth
  */
-let fetchDate = new Date()
-
-// fetch time is past, lets fetch tomorrow
-if (fetchDate.getHours() > BM_PICTURE_FETCH_HOUR) {
-  fetchDate.setDate(fetchDate.getDate() + 1)
-}
-fetchDate.setHours(BM_PICTURE_FETCH_HOUR)
-fetchDate.setMinutes(0)
-
+const now = Date.now()
 chrome.alarms.create('fetchMadame', {
-  when: fetchDate.getTime(),
-  periodInMinutes: 60*24 // every day
+  when: now,
+  periodInMinutes: 60 // each hour
 })
 
 chrome.alarms.onAlarm.addListener(({ name }) => {
@@ -84,6 +72,27 @@ chrome.alarms.onAlarm.addListener(({ name }) => {
     return
   }
 
-  fetchPicture()
-  fetchQuotes()
+  chrome.storage.local.get(['lastFetch'], ({ lastFetch }) => {
+    // Bonjour Madame pictures are published at 10am
+    const currentDate = new Date()
+    if (currentDate.getHours() < 10) {
+      return
+    }
+
+    // last fetch is less than 24h
+    if (lastFetch && currentDate.getTime() - lastFetch < 1000 * 60 * 60 * 24) {
+      return
+    }
+
+    // fetch Bonjour Madame picture
+    fetchPicture()
+
+    // loads Gainsbourg quotes
+    fetchQuotes()
+
+    // store fetch time
+    chrome.storage.local.set({
+      lastFetch: currentDate.getTime()
+    })
+  })
 })
